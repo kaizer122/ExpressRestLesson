@@ -1,0 +1,34 @@
+{
+  "name": "bootcampback",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "babel src -d dist",
+    "dev": "nodemon src/index.js --exec babel-node --presets @babel/preset-env",
+    "start": "npm run build && node ./dist/index.js"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "@babel/runtime": "^7.12.5",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "morgan": "~1.9.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
+    "@babel/preset-env": "^7.12.7",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.15.0",
+    "eslint-config-prettier": "^7.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "nodemon": "^2.0.6",
+    "prettier": "^2.2.1"
+  }
+}
