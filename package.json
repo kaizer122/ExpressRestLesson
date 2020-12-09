@@ -5,7 +5,8 @@
   "scripts": {
     "build": "babel src -d dist",
     "dev": "nodemon src/index.js --exec babel-node --presets @babel/preset-env",
-    "start": "npm run build && node ./dist/index.js"
+    "start": "npm run build && node ./dist/index.js",
+    "seed": "nodemon src/seeder.js --exec babel-node --presets @babel/preset-env"
   },
   "dependencies": {
     "@babel/polyfill": "^7.12.1",
@@ -33,6 +34,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.2.0",
     "nodemon": "^2.0.6",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "faker": "^5.1.0"
   }
 }
