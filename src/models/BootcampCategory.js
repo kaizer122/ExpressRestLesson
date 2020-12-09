@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
 import moment from "moment";
+import { model, Schema } from "mongoose";
 const BootcampCategory = new Schema({
   name: {
     type: String,
