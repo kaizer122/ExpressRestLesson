@@ -1,13 +1,14 @@
-import express from "express";
-import dotenv from "dotenv";
-import path from "path";
-import morgan from "morgan";
 import cors from "cors";
-import categoriesRouter from "./routes/categories";
-import usersRouter from "./routes/users";
+import dotenv from "dotenv";
+import express from "express";
+import fileUpload from "express-fileupload";
+import morgan from "morgan";
+import path from "path";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/errorHandler";
 import bootcampsRouter from "./routes/bootcamps";
+import categoriesRouter from "./routes/categories";
+import usersRouter from "./routes/users";
 
 dotenv.config({ path: "src/config/config.env" });
 connectDB();
@@ -21,8 +22,19 @@ app.use(cors());
 // to log requests
 app.use(morgan("dev"));
 
-// to give make a directory public
-app.use(express.static(path.join(__dirname, "public")));
+// express fileUpload middleware https://attacomsian.com/blog/uploading-files-nodejs-express?fbclid=IwAR2oQ3C3BNwf7P1YzXBgSjtQW3vlVWJiy2B3wZFz8Hmoae1eRMuznBJm74w
+
+app.use(
+  fileUpload({
+    createParentPath: true,
+    limits: {
+      fileSize: 2 * 1024 * 1024 * 1024, //2MB max file(s) size,
+    },
+  })
+);
+
+// to make public directory public
+app.use("/public", express.static(path.join(__dirname, "../public")));
 
 app.use("/categories", categoriesRouter);
 app.use("/bootcamps", bootcampsRouter);
