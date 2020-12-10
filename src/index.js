@@ -6,9 +6,10 @@ import morgan from "morgan";
 import path from "path";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/errorHandler";
-import AuthRouter from "./routes/auth";
+import authRouter from "./routes/auth";
 import bootcampsRouter from "./routes/bootcamps";
 import categoriesRouter from "./routes/categories";
+import reviewsRouter from "./routes/reviews";
 import usersRouter from "./routes/users";
 
 dotenv.config({ path: "src/config/config.env" });
@@ -41,7 +42,8 @@ app.use("/categories", categoriesRouter);
 app.use("/bootcamps", bootcampsRouter);
 
 app.use("/users", usersRouter);
-app.use("/auth", AuthRouter);
+app.use("/auth", authRouter);
+app.use("/reviews", reviewsRouter);
 
 app.use(errorHandler);
 

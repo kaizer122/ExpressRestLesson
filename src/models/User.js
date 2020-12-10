@@ -1,8 +1,8 @@
 import bcrypt from "bcryptjs";
 import moment from "moment";
-import mongoose from "mongoose";
+import { model, Schema } from "mongoose";
 
-const UserSchema = new mongoose.Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: [true, "Please add a name"],
@@ -48,4 +48,4 @@ UserSchema.pre("save", async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-module.exports = mongoose.model("User", UserSchema);
+export default model("User", UserSchema);

@@ -3,6 +3,7 @@ import faker from "faker/locale/en";
 import connectDB from "./config/db";
 import Bootcamp from "./models/Bootcamp";
 import BootcampCategory from "./models/BootcampCategory";
+import Review from "./models/Review";
 import User from "./models/User";
 dotenv.config({ path: "src/config/config.env" });
 faker.seed(123);
@@ -67,5 +68,34 @@ const generateBootcamps = async (numberOfBootcamps = 100) => {
     .catch((e) => console.log(e));
 };
 
-generateUsers();
-generateBootcamps();
+const generateReviews = async (numberOfReviews = 10) => {
+  const generatedReviews = [];
+  const bootcamps = await Bootcamp.find();
+  const bootcampIds = bootcamps.map((b) => b._id);
+  const users = await User.find();
+  const userIds = users.map((u) => u._id);
+  for (const bootcampId of bootcampIds) {
+    for (let i = 0; i < numberOfReviews; i++) {
+      const text = faker.lorem.paragraph(
+        faker.random.arrayElement([1, 2, 3, 4])
+      );
+      const user = faker.random.arrayElement(userIds);
+      const rating = faker.random.arrayElement([0, 1, 2, 3, 4, 5]);
+      generatedReviews.push(
+        new Review({ creator: user, bootcamp: bootcampId, text, rating }).save()
+      );
+    }
+  }
+  await Promise.all(generatedReviews)
+    .then(() =>
+      console.log("Generated " + generatedReviews.length + " reviews!")
+    )
+    .catch((e) => console.log(e));
+};
+const generateData = async () => {
+  await generateUsers(20);
+  await generateBootcamps(100);
+  await generateReviews(10);
+};
+
+generateData();
