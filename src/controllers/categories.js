@@ -1,4 +1,5 @@
 import asyncHandler from "../middleware/asyncHandler";
+import Bootcamp from "../models/Bootcamp";
 import BootcampCategory from "../models/BootcampCategory";
 
 export const getCategories = asyncHandler(async (req, res, next) => {

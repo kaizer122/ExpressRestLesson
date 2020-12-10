@@ -6,6 +6,7 @@ import morgan from "morgan";
 import path from "path";
 import connectDB from "./config/db";
 import errorHandler from "./middleware/errorHandler";
+import AuthRouter from "./routes/auth";
 import bootcampsRouter from "./routes/bootcamps";
 import categoriesRouter from "./routes/categories";
 import usersRouter from "./routes/users";
@@ -40,6 +41,7 @@ app.use("/categories", categoriesRouter);
 app.use("/bootcamps", bootcampsRouter);
 
 app.use("/users", usersRouter);
+app.use("/auth", AuthRouter);
 
 app.use(errorHandler);
 
