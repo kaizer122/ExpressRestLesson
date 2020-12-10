@@ -23,8 +23,27 @@ export const addBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 export const getBootcamps = asyncHandler(async (req, res) => {
-  const bootcamps = await Bootcamp.find()
+  const {
+    category = "",
+    creator = "",
+    searchQuery = "",
+    skip = 0,
+    limit = 20,
+  } = req.query;
+
+  const query = {};
+
+  if (String(searchQuery).trim() !== "") {
+    query.name = { $regex: String(searchQuery), $options: "mi" };
+  }
+
+  if (String(category).trim() !== "") query.category = category;
+  if (String(creator).trim() !== "") query.creator = creator;
+
+  const bootcamps = await Bootcamp.find(query)
     .populate(["category", "creator"])
+    .skip(Number(skip))
+    .limit(Number(limit))
     .lean();
   res.send({ success: true, data: bootcamps });
 });
