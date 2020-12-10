@@ -1,13 +1,14 @@
-var express = require("express");
+import express from "express";
 import * as Controller from "../controllers/categories";
-var CategoriesRouter = express.Router();
+import { authorize, protect } from "../middleware/auth";
+const CategoriesRouter = express.Router();
 
 CategoriesRouter.route("/")
   .get(Controller.getCategories)
-  .post(Controller.addCategory);
+  .post(protect, authorize(["admin"]), Controller.addCategory);
 
 CategoriesRouter.route("/:id")
   .put(Controller.updateCategory)
-  .delete(Controller.deleteCategory);
+  .delete(protect, authorize(["admin"]), Controller.deleteCategory);
 
 export default CategoriesRouter;

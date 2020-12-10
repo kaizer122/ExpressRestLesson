@@ -1,13 +1,12 @@
 import asyncHandler from "../middleware/asyncHandler";
-import Bootcamp from "../models/Bootcamp";
 import BootcampCategory from "../models/BootcampCategory";
 
-export const getCategories = asyncHandler(async (req, res, next) => {
+export const getCategories = asyncHandler(async (req, res) => {
   const categories = await BootcampCategory.find().lean();
   res.status(200).send({ success: true, data: categories });
 });
 
-export const addCategory = asyncHandler(async (req, res, next) => {
+export const addCategory = asyncHandler(async (req, res) => {
   const { name } = req.body;
   const categ = new BootcampCategory({ name });
   await categ.save();
@@ -15,7 +14,7 @@ export const addCategory = asyncHandler(async (req, res, next) => {
   res.status(200).send({ success: true, data: categ });
 });
 
-export const updateCategory = asyncHandler(async (req, res, next) => {
+export const updateCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -31,7 +30,7 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
   res.status(200).send({ success: true, data: categ });
 });
 
-export const deleteCategory = asyncHandler(async (req, res, next) => {
+export const deleteCategory = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   await BootcampCategory.findByIdAndDelete(id);

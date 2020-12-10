@@ -23,7 +23,7 @@ export const addBootcamp = asyncHandler(async (req, res, next) => {
   res.send({ success: true, data: bootcamp });
 });
 
-export const getBootcamps = asyncHandler(async (req, res, next) => {
+export const getBootcamps = asyncHandler(async (req, res) => {
   const bootcamps = await Bootcamp.find().populate("category").lean();
   res.send({ success: true, data: bootcamps });
 });
@@ -51,7 +51,7 @@ export const updateBootcamp = asyncHandler(async (req, res, next) => {
   res.send({ success: true, data: bootcamp });
 });
 
-export const deleteBootcamp = asyncHandler(async (req, res, next) => {
+export const deleteBootcamp = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   await Bootcamp.findByIdAndDelete(id);

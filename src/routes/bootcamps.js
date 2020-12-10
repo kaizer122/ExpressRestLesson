@@ -1,6 +1,6 @@
 import express from "express";
 import * as Controller from "../controllers/bootcamps";
-import { authorize, protect } from "../middleware/auth";
+import { protect } from "../middleware/auth";
 const bootcampsRouter = express.Router();
 
 bootcampsRouter
@@ -10,7 +10,7 @@ bootcampsRouter
 
 bootcampsRouter
   .route("/:id")
-  .put(protect, authorize(["admin"]), Controller.updateBootcamp).deleteprotect,
-  Controller.deleteBootcamp;
+  .put(protect, Controller.updateBootcamp)
+  .delete(protect, Controller.deleteBootcamp);
 
 export default bootcampsRouter;
