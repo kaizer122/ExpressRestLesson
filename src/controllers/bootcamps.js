@@ -10,10 +10,9 @@ export const addBootcamp = asyncHandler(async (req, res, next) => {
   // check if category exists
   if (count === 0) return next(new ErrorResponse("Category not found", 400));
 
-  const bootcamp = new Bootcamp(req.body);
+  const bootcamp = new Bootcamp({ ...req.body, creator: req.user._id });
   //validate before file upload
   await bootcamp.validate();
-  console.log(req.files.image);
   if (req.files && req.files.image) {
     req.files.image.mv("./public/uploads/bootcamps/" + req.files.image.name);
     bootcamp.imageUrl =
@@ -24,7 +23,9 @@ export const addBootcamp = asyncHandler(async (req, res, next) => {
 });
 
 export const getBootcamps = asyncHandler(async (req, res) => {
-  const bootcamps = await Bootcamp.find().populate("category").lean();
+  const bootcamps = await Bootcamp.find()
+    .populate(["category", "creator"])
+    .lean();
   res.send({ success: true, data: bootcamps });
 });
 
