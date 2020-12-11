@@ -44,8 +44,18 @@ export const getBootcamps = asyncHandler(async (req, res) => {
     .populate(["category", "creator"])
     .skip(Number(skip))
     .limit(Number(limit))
+    .sort({ createdAt: -1 })
     .lean();
   res.send({ success: true, data: bootcamps });
+});
+
+export const getBootcamp = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  const bootcamp = await Bootcamp.findById(id)
+    .populate(["category", "creator"])
+    .lean();
+  res.send({ success: true, data: bootcamp });
 });
 
 export const updateBootcamp = asyncHandler(async (req, res, next) => {

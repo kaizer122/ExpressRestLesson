@@ -10,6 +10,7 @@ bootcampsRouter
 
 bootcampsRouter
   .route("/:id")
+  .get(Controller.getBootcamp)
   .put(protect, Controller.updateBootcamp)
   .delete(protect, Controller.deleteBootcamp);
 

@@ -11,7 +11,6 @@ import bootcampsRouter from "./routes/bootcamps";
 import categoriesRouter from "./routes/categories";
 import reviewsRouter from "./routes/reviews";
 import usersRouter from "./routes/users";
-import sendEmail from "./utils/sendEmail";
 
 dotenv.config({ path: "src/config/config.env" });
 connectDB();
@@ -53,7 +52,7 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("listening......"));
 
 // Handle unhandled promise rejections
-process.on("unhandledRejection", (err, promise) => {
+process.on("unhandledRejection", (err) => {
   console.log(`Error: ${err.message}`.red);
   // Close server & exit process
   // server.close(() => process.exit(1));
