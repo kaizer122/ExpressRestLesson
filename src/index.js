@@ -11,6 +11,7 @@ import bootcampsRouter from "./routes/bootcamps";
 import categoriesRouter from "./routes/categories";
 import reviewsRouter from "./routes/reviews";
 import usersRouter from "./routes/users";
+import sendEmail from "./utils/sendEmail";
 
 dotenv.config({ path: "src/config/config.env" });
 connectDB();

@@ -3,6 +3,7 @@ import asyncHandler from "../middleware/asyncHandler";
 import User from "../models/User";
 import ErrorResponse from "../utils/ErrorResponse";
 import jwt from "jsonwebtoken";
+import sendEmail from "../utils/sendEmail";
 
 export const register = asyncHandler(async (req, res, next) => {
   const { email, name, password } = req.body;
@@ -11,6 +12,8 @@ export const register = asyncHandler(async (req, res, next) => {
     return next(new ErrorResponse("Please provide an email and password", 400));
   }
   const user = await new User({ email, name, password }).save();
+  const message = `Hello ${user.name}, Your account has been successfully registered. Thank you.`;
+  sendEmail({ email, message, subject: "Welcome to Bootcamper" });
   sendTokenResponse(user, 200, res);
 });
 
