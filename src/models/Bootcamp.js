@@ -30,6 +30,11 @@ const BootcampSchema = new Schema({
     enum: [0, 1, 2, 3, 4, 5],
     default: 0,
   },
+  creator: {
+    type: Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
   startsAt: {
     type: Number,
     default: moment().valueOf(),
@@ -40,12 +45,5 @@ const BootcampSchema = new Schema({
   },
   updatedAt: Number,
 });
-
-// BootcampSchema.pre("save", (next) => {
-//   if (this.isNew || this.isModified("startsAt")) {
-//     this.updatedAt = moment().valueOf();
-//   }
-//   next();
-// });
 
 export default model("Bootcamp", BootcampSchema);
