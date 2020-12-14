@@ -46,7 +46,9 @@ export const getBootcamps = asyncHandler(async (req, res) => {
     .limit(Number(limit))
     .sort({ createdAt: -1 })
     .lean();
-  res.send({ success: true, data: bootcamps });
+
+  const count = await Bootcamp.count(query);
+  res.send({ success: true, count, data: bootcamps });
 });
 
 export const getBootcamp = asyncHandler(async (req, res) => {
